@@ -18,7 +18,7 @@ from ImageNetLoader import ImageNetDALIPipeline
 import json
 
 # Training Hyperparameters
-learning_rate = 1e-3
+learning_rate = 0.01
 momentum = 0.9
 batch_size = 32
 epoch_limit = 20
@@ -167,4 +167,6 @@ def test_loop(dataloader, model, loss_fn, enable_log=True):
 while current_checkpoint < epoch_limit:
     train_loop(training_dataloader, model, loss_fn, optimizer)
     test_loop(eval_dataloader, model, loss_fn)
+    training_dataloader.reset()
+    eval_dataloader.reset()
     current_checkpoint += 1

@@ -52,8 +52,8 @@ def ImageNetDALIPipeline(data_dir, crop, size, shard_id, num_shards, is_training
                                       dtype=types.FLOAT,
                                       output_layout="CHW",
                                       crop=(crop, crop),
-                                      mean=[0, 0, 0],
-                                      std=[1, 1, 1],
+                                      mean=[0.485 * 255,0.456 * 255,0.406 * 255],
+                                      std=[0.229 * 255,0.224 * 255,0.225 * 255],
                                       mirror=mirror)
     labels = labels.gpu()
     return images, labels
