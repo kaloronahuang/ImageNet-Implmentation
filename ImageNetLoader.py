@@ -24,10 +24,10 @@ def ImageNetDALIPipeline(data_dir, crop, size, shard_id, num_shards, is_training
     if is_training:
         images = fn.decoders.image_random_crop(images, 
             device=decoder_device, output_type=types.RGB,
-            device_memory_padding=device_memory_padding,
-            host_memory_padding=host_memory_padding,
-            preallocate_width_hint=preallocate_width_hint,
-            preallocate_height_hint=preallocate_height_hint,
+            # device_memory_padding=device_memory_padding,
+            # host_memory_padding=host_memory_padding,
+            # preallocate_width_hint=preallocate_width_hint,
+            # preallocate_height_hint=preallocate_height_hint,
             random_aspect_ratio=[0.8, 1.25],
             random_area=[0.1, 1.0],
             num_attempts=100

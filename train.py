@@ -74,7 +74,7 @@ pipe = ImageNetDALIPipeline(batch_size=batch_size,
                             num_shards=1,
                             is_training=True)
 pipe.build()
-training_dataloader = DALIClassificationIterator(pipe, reader_name="Reader", last_batch_policy=LastBatchPolicy.PARTIAL)
+training_dataloader = DALIClassificationIterator(pipe, reader_name="Reader", last_batch_policy=LastBatchPolicy.FILL, auto_reset=True)
 
 pipe = ImageNetDALIPipeline(batch_size=batch_size,
                             num_threads=4,
@@ -87,7 +87,7 @@ pipe = ImageNetDALIPipeline(batch_size=batch_size,
                             num_shards=1,
                             is_training=False)
 pipe.build()
-eval_dataloader = DALIClassificationIterator(pipe, reader_name="Reader", last_batch_policy=LastBatchPolicy.PARTIAL)
+eval_dataloader = DALIClassificationIterator(pipe, reader_name="Reader", last_batch_policy=LastBatchPolicy.FILL, auto_reset=True)
 
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate, momentum=momentum)
@@ -107,7 +107,6 @@ def train_loop(dataloader, model, loss_fn, optimizer, enable_log=True):
 
     for batch, data in enumerate(dataloader):
         for d in data:
-            #X, Y = X.cuda(), Y.cuda()
             X, Y = d["data"], d["label"].squeeze(-1).long()
             pred = model(X)
             loss = loss_fn(pred, Y)
