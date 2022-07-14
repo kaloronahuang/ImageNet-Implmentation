@@ -168,4 +168,3 @@ while current_checkpoint < epoch_limit:
     test_loop(eval_dataloader, model, loss_fn)
     training_dataloader.reset()
     eval_dataloader.reset()
-    current_checkpoint += 1
